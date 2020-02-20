@@ -6,19 +6,27 @@ import 'package:flutter_tap_plane/flame/custom-body-component.dart';
 
 import '../utils.dart';
 
+class Ground {
+  List<GroundComponent> list = new List();
+
+  Ground(box2d) {
+    list.add(GroundComponent(box2d, 0));
+    list.add(GroundComponent(box2d, 1));
+  }
+}
+
 class GroundComponent extends CustomBodyComponent {
   static const VELOCITY = 60.0;
   static const SPRITE_WIDTH = 808;
   static const SPRITE_HEIGHT = 70;
 
-  bool remove;
   double height;
   double width;
   ImagesLoader images = new ImagesLoader();
   
   GroundComponent(box2d, position) : super(box2d) {
     images.load('ground-rock', 'ground/ground-rock.png');
-    height = tileSize * 1;
+    height = tileSize;
     width = SPRITE_WIDTH * height / SPRITE_HEIGHT;
 
     final shape = new PolygonShape();
@@ -39,7 +47,7 @@ class GroundComponent extends CustomBodyComponent {
 
   @override
   void update(double t) {
-    if (body.position.x + width / 2 < -viewport.width / 2){
+    if (body.position.x + width / 2 < -(viewport.width)){
       body.setTransform(Vector2((body.position.x + width * 2) - VELOCITY * t, body.position.y), 0);
     } else {
       body.setTransform(Vector2(body.position.x - VELOCITY * t, body.position.y), 0);

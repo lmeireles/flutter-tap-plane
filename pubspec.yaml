@@ -42,6 +42,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/ground/ground-rock.png
+    - assets/images/bg/background.png
+    - assets/images/plane/plane-1.png
+    - assets/images/plane/plane-2.png
+    - assets/images/plane/plane-3.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

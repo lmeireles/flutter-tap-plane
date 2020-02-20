@@ -6,26 +6,33 @@ import 'package:flutter_tap_plane/flame/custom-body-component.dart';
 
 import '../utils.dart';
 
-class Plane extends CustomBodyComponent {
-  static const VELOCITY = 60.0;
-  static const SPRITE_WIDTH = 808;
-  static const SPRITE_HEIGHT = 70;
+class Background {
+  List<BackgroundComponent> list = new List();
+
+  Background(box2d) {
+    list.add(BackgroundComponent(box2d, 0));
+    list.add(BackgroundComponent(box2d, 1));
+  }
+}
+
+class BackgroundComponent extends CustomBodyComponent {
+  static const VELOCITY = 20.0;
+  static const SPRITE_WIDTH = 800;
+  static const SPRITE_HEIGHT = 480;
 
   double height;
   double width;
   ImagesLoader images = new ImagesLoader();
   
-  Plane(box2d, position) : super(box2d) {
-    _loadImages();
-
-    height = tileSize * 1;
+  BackgroundComponent(box2d, position) : super(box2d) {
+    images.load('background', 'bg/background.png');
+    height = viewport.height;
     width = SPRITE_WIDTH * height / SPRITE_HEIGHT;
 
     final shape = new PolygonShape();
     shape.setAsBoxXY(width / 2, height / 2);
     final fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
-    fixtureDef.restitution = 0.0;
     fixtureDef.friction = 0.2;
 
     final bodyDef = new BodyDef();
@@ -35,12 +42,6 @@ class Plane extends CustomBodyComponent {
     this.body = world.createBody(bodyDef)
 
       ..createFixtureFromFixtureDef(fixtureDef);
-  }
-
-  void _loadImages() {
-    images.load('plane-1', 'plane/plane-1.png');
-    images.load('plane-2', 'plane/plane-2.png');
-    images.load('plane-3', 'plane/plane-3.png');
   }
 
   @override
@@ -59,7 +60,7 @@ class Plane extends CustomBodyComponent {
     paintImage(
       canvas: canvas,
       rect: new Rect.fromPoints(points[0], points[2]),
-      image: images.get('ground-rock'),
+      image: images.get('background'),
       fit: BoxFit.fill,
     );
   }
