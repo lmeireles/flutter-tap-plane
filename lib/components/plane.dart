@@ -8,17 +8,17 @@ import '../utils.dart';
 
 class Plane extends CustomBodyComponent {
   static const VELOCITY = 60.0;
-  static const SPRITE_WIDTH = 808;
-  static const SPRITE_HEIGHT = 70;
+  static const SPRITE_WIDTH = 88;
+  static const SPRITE_HEIGHT = 73;
 
+  ImagesLoader images = new ImagesLoader();
   double height;
   double width;
-  ImagesLoader images = new ImagesLoader();
-  
-  Plane(box2d, position) : super(box2d) {
+
+  Plane(box2d) : super(box2d) {
     _loadImages();
 
-    height = tileSize * 1;
+    height = tileSize;
     width = SPRITE_WIDTH * height / SPRITE_HEIGHT;
 
     final shape = new PolygonShape();
@@ -29,7 +29,7 @@ class Plane extends CustomBodyComponent {
     fixtureDef.friction = 0.2;
 
     final bodyDef = new BodyDef();
-    bodyDef.position = new Vector2((-(viewport.width / 2) + width / 2) + (width * position), -(viewport.height / 2) + height / 2);
+    bodyDef.position = new Vector2(- width / 2, -(viewport.height / 2) + height / 2);
     bodyDef.type = BodyType.STATIC;
 
     this.body = world.createBody(bodyDef)
