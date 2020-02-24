@@ -9,11 +9,18 @@ import '../utils.dart';
 class Plane extends CustomBodyComponent {
   static const VELOCITY = 30.0;
 
+  double oldX = 0;
+  double deltaChangeSprite = 0.0;
+  int activeSprite = 1;
+
   ImagesLoader images = new ImagesLoader();
 
   Plane(box2d) : super(box2d) {
     _loadImages();
+    _createBody();
+  }
 
+  void _createBody() {
     final shape = new CircleShape();
     shape.radius = tileSize / 2;
     final fixtureDef = new FixtureDef();
@@ -44,6 +51,19 @@ class Plane extends CustomBodyComponent {
 
   @override
   void update(double t) {
+    if (deltaChangeSprite > 0.08) {
+      activeSprite = activeSprite < images.length ? ++activeSprite : 1;
+      deltaChangeSprite = 0;
+    } else {
+      deltaChangeSprite += t;
+    }
+
+    if (oldX < body.position.x) {
+      body.applyTorque(10.0);
+    } else {
+      body.applyTorque(-10.0);
+    }
+    oldX = body.position.x;
   }
 
   @override
@@ -53,7 +73,7 @@ class Plane extends CustomBodyComponent {
     paintImage(
       canvas: canvas,
       rect: new Rect.fromCircle(center: center, radius: radius),
-      image: images.get('plane-1'),
+      image: images.get("plane-$activeSprite"),
       fit: BoxFit.fill,
     );
   }

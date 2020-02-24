@@ -16,6 +16,7 @@ class ImagesLoader {
   }
 
   bool get isLoading => loading != 0;
+  int get length => images.length;
 
   Image get(String key) => images[key];
 }
