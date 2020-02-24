@@ -7,7 +7,7 @@ import 'package:flutter_tap_plane/flame/custom-body-component.dart';
 import '../utils.dart';
 
 class Plane extends CustomBodyComponent {
-  static const VELOCITY = 60.0;
+  static const VELOCITY = 30.0;
   static const SPRITE_WIDTH = 88;
   static const SPRITE_HEIGHT = 73;
 
@@ -21,19 +21,20 @@ class Plane extends CustomBodyComponent {
     height = tileSize;
     width = SPRITE_WIDTH * height / SPRITE_HEIGHT;
 
-    final shape = new PolygonShape();
-    shape.setAsBoxXY(width / 2, height / 2);
+    final shape = new CircleShape();
+    shape.radius = height / 2;
     final fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     fixtureDef.restitution = 0.0;
-    fixtureDef.friction = 0.2;
+    fixtureDef.friction = 0.01;
+    fixtureDef.density = 0.03;
 
     final bodyDef = new BodyDef();
-    bodyDef.position = new Vector2(- width / 2, -(viewport.height / 2) + height / 2);
-    bodyDef.type = BodyType.STATIC;
+    bodyDef.position = new Vector2(0, 0);
+    bodyDef.bullet = true;
+    bodyDef.type = BodyType.DYNAMIC;
 
     this.body = world.createBody(bodyDef)
-
       ..createFixtureFromFixtureDef(fixtureDef);
   }
 
@@ -43,24 +44,24 @@ class Plane extends CustomBodyComponent {
     images.load('plane-3', 'plane/plane-3.png');
   }
 
-  @override
-  void update(double t) {
-    if (body.position.x + width / 2 < -(viewport.width)){
-      body.setTransform(Vector2((body.position.x + width * 2) - VELOCITY * t, body.position.y), 0);
-    } else {
-      body.setTransform(Vector2(body.position.x - VELOCITY * t, body.position.y), 0);
-    }
+  void onTap() {
+    Vector2 force = new Vector2(0, VELOCITY)..scale(175);
+    body.applyLinearImpulse(force, center, true);
   }
 
   @override
-  void renderPolygon(Canvas canvas, List<Offset> points) {
-    if (images.isLoading) return;
+  void update(double t) {
+  }
 
-    paintImage(
-      canvas: canvas,
-      rect: new Rect.fromPoints(points[0], points[2]),
-      image: images.get('ground-rock'),
-      fit: BoxFit.fill,
-    );
+  @override
+  void renderCircle(Canvas canvas, Offset center, double radius) {
+    if (images.isLoading) return;
+super.renderCircle(canvas, center, radius);
+//    paintImage(
+//      canvas: canvas,
+//      rect: new Rect.fromPoints(points[0], points[2]),
+//      image: images.get('plane-1'),
+//      fit: BoxFit.fill,
+//    );
   }
 }

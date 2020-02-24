@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flame/game.dart';
+import 'package:flame/gestures.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_tap_plane/tap-plane-world.dart';
 
-class TapPlaneGame extends Game {
+class TapPlaneGame extends Game with TapDetector {
   static const TILES_PER_WIDTH = 9;
 
   final TapPlaneWorld tapPlaneWorld = new TapPlaneWorld();
@@ -24,5 +26,10 @@ class TapPlaneGame extends Game {
   @override
   void resize(Size size) {
     tapPlaneWorld.resize(size);
+  }
+
+  @override
+  void onTap() {
+    tapPlaneWorld.onTap();
   }
 }

@@ -41,7 +41,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/ground/ground-rock.png
+    - assets/images/ground/ground-grass.png
     - assets/images/bg/background.png
     - assets/images/plane/plane-1.png
     - assets/images/plane/plane-2.png
