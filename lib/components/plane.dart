@@ -30,7 +30,7 @@ class Plane extends CustomBodyComponent {
     fixtureDef.density = 0.03;
 
     final bodyDef = new BodyDef();
-    bodyDef.position = new Vector2(0, 0);
+    bodyDef.position = new Vector2(-(viewport.width / 4), 0);
     bodyDef.bullet = true;
     bodyDef.type = BodyType.DYNAMIC;
 
@@ -56,12 +56,12 @@ class Plane extends CustomBodyComponent {
   @override
   void renderCircle(Canvas canvas, Offset center, double radius) {
     if (images.isLoading) return;
-super.renderCircle(canvas, center, radius);
-//    paintImage(
-//      canvas: canvas,
-//      rect: new Rect.fromPoints(points[0], points[2]),
-//      image: images.get('plane-1'),
-//      fit: BoxFit.fill,
-//    );
+
+    paintImage(
+      canvas: canvas,
+      rect: new Rect.fromCircle(center: center, radius: radius),
+      image: images.get('plane-1'),
+      fit: BoxFit.fill,
+    );
   }
 }
