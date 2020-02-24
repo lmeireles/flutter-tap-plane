@@ -8,21 +8,14 @@ import '../utils.dart';
 
 class Plane extends CustomBodyComponent {
   static const VELOCITY = 30.0;
-  static const SPRITE_WIDTH = 88;
-  static const SPRITE_HEIGHT = 73;
 
   ImagesLoader images = new ImagesLoader();
-  double height;
-  double width;
 
   Plane(box2d) : super(box2d) {
     _loadImages();
 
-    height = tileSize;
-    width = SPRITE_WIDTH * height / SPRITE_HEIGHT;
-
     final shape = new CircleShape();
-    shape.radius = height / 2;
+    shape.radius = tileSize / 2;
     final fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     fixtureDef.restitution = 0.0;
