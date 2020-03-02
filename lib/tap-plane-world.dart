@@ -1,6 +1,7 @@
 import 'package:flame/box2d/box2d_component.dart';
 import 'package:flutter_tap_plane/components/background.dart';
 import 'package:flutter_tap_plane/components/ground.dart';
+import 'package:flutter_tap_plane/components/obstacle.dart';
 import 'package:flutter_tap_plane/components/plane.dart';
 
 class TapPlaneWorld extends Box2DComponent {
@@ -10,6 +11,7 @@ class TapPlaneWorld extends Box2DComponent {
 
   void initializeWorld() {
     add(new Background(this));
+    addAll(new Obstacle(this).map.values.toList());
     addAll(new Ground(this).list);
     add(plane = new Plane(this));
   }
