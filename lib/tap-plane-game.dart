@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_tap_plane/tap-plane-world.dart';
 
 class TapPlaneGame extends Game with TapDetector {
-  static const TILES_PER_WIDTH = 9;
+  static const TILES_PER_WIDTH = 9.0;
 
   final TapPlaneWorld tapPlaneWorld = new TapPlaneWorld();
 

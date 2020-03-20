@@ -6,7 +6,7 @@ class CustomBodyComponent extends BodyComponent {
   double tileSize;
 
   CustomBodyComponent(Box2DComponent box) : super(box) {
-    tileSize = viewport.size.width / TapPlaneGame.TILES_PER_WIDTH;
+    tileSize = box.viewport.width / TapPlaneGame.TILES_PER_WIDTH;
   }
 
   @override

@@ -22,7 +22,7 @@ class Plane extends CustomBodyComponent {
 
   void _createBody() {
     final shape = new CircleShape();
-    shape.radius = tileSize / 2;
+    shape.radius = tileSize / 1.5;
     final fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     fixtureDef.restitution = 0.0;
