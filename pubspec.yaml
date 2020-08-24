@@ -23,7 +23,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  flame: ^0.18.1
+  flame: ^0.24.0
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +46,12 @@ flutter:
     - assets/images/plane/plane-1.png
     - assets/images/plane/plane-2.png
     - assets/images/plane/plane-3.png
+    - assets/images/plane/plane-1-up.png
+    - assets/images/plane/plane-2-up.png
+    - assets/images/plane/plane-3-up.png
+    - assets/images/plane/plane-1-down.png
+    - assets/images/plane/plane-2-down.png
+    - assets/images/plane/plane-3-down.png
     - assets/images/obstacles/grass-1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

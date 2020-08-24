@@ -8,10 +8,13 @@ import '../utils.dart';
 
 class Plane extends CustomBodyComponent {
   static const VELOCITY = 30.0;
+  static const NUMBER_OF_SPRITES = 3;
 
   double oldX = 0;
+  double oldY = 0;
   double deltaChangeSprite = 0.0;
   int activeSprite = 1;
+  String direction = 'neutral'; // down / neutral / up
 
   ImagesLoader images = new ImagesLoader();
 
@@ -39,9 +42,15 @@ class Plane extends CustomBodyComponent {
   }
 
   void _loadImages() {
-    images.load('plane-1', 'plane/plane-1.png');
-    images.load('plane-2', 'plane/plane-2.png');
-    images.load('plane-3', 'plane/plane-3.png');
+    images.load('plane-1-neutral', 'plane/plane-1.png');
+    images.load('plane-2-neutral', 'plane/plane-2.png');
+    images.load('plane-3-neutral', 'plane/plane-3.png');
+    images.load('plane-1-up', 'plane/plane-1-up.png');
+    images.load('plane-2-up', 'plane/plane-2-up.png');
+    images.load('plane-3-up', 'plane/plane-3-up.png');
+    images.load('plane-1-down', 'plane/plane-1-down.png');
+    images.load('plane-2-down', 'plane/plane-2-down.png');
+    images.load('plane-3-down', 'plane/plane-3-down.png');
   }
 
   void onTap() {
@@ -52,18 +61,28 @@ class Plane extends CustomBodyComponent {
   @override
   void update(double t) {
     if (deltaChangeSprite > 0.08) {
-      activeSprite = activeSprite < images.length ? ++activeSprite : 1;
+      activeSprite = activeSprite < NUMBER_OF_SPRITES ? ++activeSprite : 1;
       deltaChangeSprite = 0;
     } else {
       deltaChangeSprite += t;
     }
 
+    if (oldY - body.position.y <= -0.9) {
+      direction = 'up';
+    }
+    else if (oldY - body.position.y >= 0.9) {
+      direction = 'down';
+    } else {
+      direction = 'neutral';
+    }
+    
     if (oldX < body.position.x) {
       body.applyTorque(10.0);
     } else {
       body.applyTorque(-10.0);
     }
     oldX = body.position.x;
+    oldY = body.position.y;
   }
 
   @override
@@ -73,7 +92,7 @@ class Plane extends CustomBodyComponent {
     paintImage(
       canvas: canvas,
       rect: new Rect.fromCircle(center: center, radius: radius),
-      image: images.get("plane-$activeSprite"),
+      image: images.get("plane-$activeSprite-$direction"),
       fit: BoxFit.fill,
     );
   }

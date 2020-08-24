@@ -7,7 +7,7 @@ import 'package:flutter_tap_plane/flame/custom-body-component.dart';
 import '../utils.dart';
 
 class Ground {
-  static const LIST_LENGTH = 4;
+  static const LIST_LENGTH = 5;
 
   List<GroundComponent> list = new List(LIST_LENGTH);
 
@@ -50,7 +50,7 @@ class GroundComponent extends CustomBodyComponent {
 
   @override
   void update(double t) {
-    if (body.position.x + width / 2 < -(viewport.width)){
+    if (body.position.x + width < -(viewport.width)){
       body.setTransform(Vector2((body.position.x + width * Ground.LIST_LENGTH) - VELOCITY * t, body.position.y), 0);
     } else {
       body.setTransform(Vector2(body.position.x - VELOCITY * t, body.position.y), 0);

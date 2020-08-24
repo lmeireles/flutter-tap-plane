@@ -22,7 +22,7 @@ class Obstacle {
 
 class ObstacleComponent extends CustomBodyComponent {
   static const VELOCITY = 60.0;
-  static const SPACING = 150;
+  static const SPACING = 190;
   static const SPRITE_WIDTH = 48.0;
   static const SPRITE_HEIGHT = 346.0;
 
@@ -68,10 +68,9 @@ class ObstacleComponent extends CustomBodyComponent {
 
   @override
   void update(double t) {
-    if (body.position.x + width < -(viewport.width / 2 + width)) {
+    if (body.position.x + width * 3 < -(viewport.width / 2 + width)) {
       if (type == 'up') {
         double x = body.position.x + (obstacle.map.length / 2) * (width + SPACING);
-        print((obstacle.map.length - 1) * (width + SPACING));
 
         body.setTransform(Vector2(x, body.position.y), 0);
         obstacle.map.update("${order}down", (cmp) {
@@ -88,7 +87,8 @@ class ObstacleComponent extends CustomBodyComponent {
   void renderPolygon(Canvas canvas, List<Offset> points) {
     if (images.isLoading) return;
 
-    super.renderPolygon(canvas, points);
+    // white background
+    //super.renderPolygon(canvas, points);
 
     paintImage(
       canvas: canvas,
@@ -99,6 +99,6 @@ class ObstacleComponent extends CustomBodyComponent {
   }
 
   double basicXStart() => (viewport.width / 2) + (width + SPACING) * order;
-  double randomPosition() => ((viewport.height / 2 + height / 2) - rand.nextDouble() * (viewport.height / 1.7));
+  double randomPosition() => ((viewport.height / 2 + height / 2) - rand.nextDouble() * (viewport.height / 1.2));
   double calculateLowerPosition(y) => y - SPACING - height;
 }
